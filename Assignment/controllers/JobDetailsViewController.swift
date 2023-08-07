@@ -18,7 +18,8 @@ class JobDetailsViewController: UIViewController {
         
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "Description: \(job.description)"
+        titleLabel.textColor = Styles.shared.primaryTextColor
+        titleLabel.text = "Company: \(job.company.name)"
         view.addSubview(titleLabel)
         
         
@@ -30,13 +31,15 @@ class JobDetailsViewController: UIViewController {
         
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.text = "Description: \(job.description)"
+        descriptionLabel.text = "Position Title: \(job.positionTitle)"
+        descriptionLabel.textColor = Styles.shared.secondaryTextColor
         view.addSubview(descriptionLabel)
         
         let paymentLabel = UILabel()
         paymentLabel.translatesAutoresizingMaskIntoConstraints = false
-        paymentLabel.text = "Payment: \(job.salaryRange.max)"
-        
+        paymentLabel.textColor = Styles.shared.secondaryTextColor
+        paymentLabel.text = "Description: \(job.description)"
+        paymentLabel.numberOfLines = 0
         view.addSubview(paymentLabel)
         
         let dividerView = UIView()
@@ -47,7 +50,8 @@ class JobDetailsViewController: UIViewController {
         
         let shiftsLabel = UILabel()
         shiftsLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+        shiftsLabel.textColor = Styles.shared.secondaryTextColor
+        shiftsLabel.text = "Industry: \(job.industry)"
         view.addSubview(shiftsLabel)
         
         let dividerView2 = UIView()
@@ -58,7 +62,8 @@ class JobDetailsViewController: UIViewController {
         
         let requirementsLabel = UILabel()
         requirementsLabel.translatesAutoresizingMaskIntoConstraints = false
-        requirementsLabel.text = "Requirements:\n\nResponsible for taking orders from and serving food to customers.\nTaking food and drink orders and writing them down on order slips.\nEnsuring that tables are served properly.\nPositive attitude and ability to work well under pressure with other staff.\nEngage with customers in a friendly manner."
+        requirementsLabel.text = "Location: \(job.location)"
+        requirementsLabel.textColor = Styles.shared.secondaryTextColor
         requirementsLabel.numberOfLines = 0
         
         view.addSubview(requirementsLabel)
@@ -83,13 +88,16 @@ class JobDetailsViewController: UIViewController {
             bannerImageView.heightAnchor.constraint(equalToConstant: 240),
             
             titleLabel.topAnchor.constraint(equalTo: bannerImageView.bottomAnchor, constant:10),
-            titleLabel.leadingAnchor.constraint(equalTo: bannerImageView.leadingAnchor, constant:10),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant:10),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant:10),
             
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant:10),
             descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant:0),
+            descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant:0),
             
             paymentLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant:10),
             paymentLabel.leadingAnchor.constraint(equalTo: descriptionLabel.leadingAnchor, constant:0),
+            paymentLabel.trailingAnchor.constraint(equalTo: descriptionLabel.trailingAnchor, constant:0),
             
             shiftsLabel.topAnchor.constraint(equalTo: paymentLabel.bottomAnchor, constant:10),
             shiftsLabel.leadingAnchor.constraint(equalTo: paymentLabel.leadingAnchor, constant:0),

@@ -34,7 +34,6 @@ class JoblistViewController: UIViewController {
         }
 
         let newPage = isRefreshing ? 1 : page + 1
-        let params = ["page": newPage]
         self.refreshControl.beginRefreshing()
         JobsService().fetchJobs(page: newPage) { (jobsModel, err) in
             if err != nil {
@@ -72,11 +71,10 @@ extension JoblistViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90 // Adjust the cell height as per your requirement
+        return 90
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Update the background color when a cell is tapped
         let job = jobs[indexPath.row]
         let jobDetailsViewController = JobDetailsViewController(job: job)
         navigationController?.pushViewController(jobDetailsViewController, animated: true)
