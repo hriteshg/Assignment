@@ -19,7 +19,9 @@ class JobDetailsViewController: UIViewController {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.textColor = Styles.shared.primaryTextColor
-        titleLabel.text = "Company: \(job.company.name)"
+        let attributed = NSMutableAttributedString(string: "Company: \(job.company.name)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)])
+        attributed.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: NSRange(location: 0, length: 8))
+        titleLabel.attributedText = attributed
         view.addSubview(titleLabel)
         
         
@@ -31,15 +33,26 @@ class JobDetailsViewController: UIViewController {
         
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.text = "Position Title: \(job.positionTitle)"
-        descriptionLabel.textColor = Styles.shared.secondaryTextColor
+        let des = NSMutableAttributedString(string: "Position Title: \(job.positionTitle)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18)])
+        des.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: NSRange(location: 0, length: 15))
+        descriptionLabel.attributedText = des
+        descriptionLabel.textColor = Styles.shared.primaryTextColor
         view.addSubview(descriptionLabel)
         
         let paymentLabel = UILabel()
         paymentLabel.translatesAutoresizingMaskIntoConstraints = false
-        paymentLabel.textColor = Styles.shared.secondaryTextColor
-        paymentLabel.text = "Description: \(job.description)"
+        paymentLabel.textColor = Styles.shared.primaryTextColor
         paymentLabel.numberOfLines = 0
+        paymentLabel.lineBreakMode = .byWordWrapping
+        
+        let paymentStr = NSMutableAttributedString(string: "Description: \(job.description)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
+        paymentStr.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 16), range: NSRange(location: 0, length: 11))
+        let ss = NSMutableParagraphStyle()
+        ss.lineBreakMode = .byWordWrapping
+        paymentStr.addAttribute(NSAttributedString.Key.paragraphStyle, value: ss, range: NSRange(location: 0, length: paymentStr.length))
+        paymentLabel.attributedText = paymentStr
+        
+        paymentLabel.sizeToFit()
         view.addSubview(paymentLabel)
         
         let dividerView = UIView()
@@ -50,8 +63,10 @@ class JobDetailsViewController: UIViewController {
         
         let shiftsLabel = UILabel()
         shiftsLabel.translatesAutoresizingMaskIntoConstraints = false
-        shiftsLabel.textColor = Styles.shared.secondaryTextColor
-        shiftsLabel.text = "Industry: \(job.industry)"
+        shiftsLabel.textColor = Styles.shared.primaryTextColor
+        let shiftStr = NSMutableAttributedString(string: "Industry: \(job.industry)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
+        shiftStr.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 18), range: NSRange(location: 0, length: 9))
+        shiftsLabel.attributedText = shiftStr
         view.addSubview(shiftsLabel)
         
         let dividerView2 = UIView()
@@ -62,8 +77,10 @@ class JobDetailsViewController: UIViewController {
         
         let requirementsLabel = UILabel()
         requirementsLabel.translatesAutoresizingMaskIntoConstraints = false
-        requirementsLabel.text = "Location: \(job.location)"
-        requirementsLabel.textColor = Styles.shared.secondaryTextColor
+        requirementsLabel.textColor = Styles.shared.primaryTextColor
+        let reqStr = NSMutableAttributedString(string: "Location: \(job.location)", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)])
+        reqStr.addAttribute(NSAttributedString.Key.font, value: UIFont.boldSystemFont(ofSize: 16), range: NSRange(location: 0, length: 8))
+        requirementsLabel.attributedText = reqStr
         requirementsLabel.numberOfLines = 0
         
         view.addSubview(requirementsLabel)
@@ -77,6 +94,9 @@ class JobDetailsViewController: UIViewController {
         let applyButton = UIButton(type: .system)
         applyButton.translatesAutoresizingMaskIntoConstraints = false
         applyButton.setTitle("Apply for this Job", for: .normal)
+        applyButton.backgroundColor = Styles.shared.primaryButtonColor
+        applyButton.setTitleColor(UIColor.white, for: .normal)
+        applyButton.layer.cornerRadius = 4
         applyButton.addTarget(self, action: #selector(applyButtonTapped), for: .touchUpInside)
         
         view.addSubview(applyButton)
@@ -97,7 +117,7 @@ class JobDetailsViewController: UIViewController {
             
             paymentLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant:10),
             paymentLabel.leadingAnchor.constraint(equalTo: descriptionLabel.leadingAnchor, constant:0),
-            paymentLabel.trailingAnchor.constraint(equalTo: descriptionLabel.trailingAnchor, constant:0),
+            paymentLabel.trailingAnchor.constraint(equalTo: descriptionLabel.trailingAnchor, constant:-20),
             
             shiftsLabel.topAnchor.constraint(equalTo: paymentLabel.bottomAnchor, constant:10),
             shiftsLabel.leadingAnchor.constraint(equalTo: paymentLabel.leadingAnchor, constant:0),
@@ -108,6 +128,8 @@ class JobDetailsViewController: UIViewController {
             
             applyButton.topAnchor.constraint(equalTo: requirementsLabel.bottomAnchor, constant:10),
             applyButton.leadingAnchor.constraint(equalTo: requirementsLabel.leadingAnchor, constant:0),
+            applyButton.heightAnchor.constraint(equalToConstant: 44),
+            applyButton.widthAnchor.constraint(equalToConstant: 180),
         ])
     }
     
