@@ -25,27 +25,35 @@ class JobTableViewCell: UITableViewCell {
         label.textColor = Styles.shared.secondaryTextColor
         return label
     }()
-    
-    private let shiftDatesLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: Styles.shared.mediumFontSize)
-        label.textColor = Styles.shared.secondaryTextColor
-        return label
+        
+    private let containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.borderColor = UIColor.gray.cgColor
+        view.layer.cornerRadius = 5
+        view.layer.borderWidth = 0.5
+        return view
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(descriptionLabel)
-        contentView.addSubview(paymentLabel)
-        contentView.addSubview(shiftDatesLabel)
+        
+        
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(descriptionLabel)
+        containerView.addSubview(paymentLabel)
+        contentView.addSubview(containerView)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            
+            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
+            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8),
             titleLabel.heightAnchor.constraint(equalToConstant: 20),
             
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
@@ -57,12 +65,6 @@ class JobTableViewCell: UITableViewCell {
             paymentLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
             paymentLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             paymentLabel.heightAnchor.constraint(equalToConstant: 20),
-            
-            
-            shiftDatesLabel.topAnchor.constraint(equalTo: paymentLabel.bottomAnchor, constant: 8),
-            shiftDatesLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            shiftDatesLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            shiftDatesLabel.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     

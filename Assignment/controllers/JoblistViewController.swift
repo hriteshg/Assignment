@@ -15,6 +15,7 @@ class JoblistViewController: UIViewController {
         tableView = UITableView(frame: view.bounds)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         tableView.register(JobTableViewCell.self, forCellReuseIdentifier: "JobCell")
         view.addSubview(tableView)
         
@@ -71,7 +72,7 @@ extension JoblistViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return 120
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
